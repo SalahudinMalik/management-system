@@ -1,0 +1,16 @@
+<div class="animated fadeIn">
+  <h5>Dashboard Works</h5>
+
+  <br/>
+  <div class="row">
+      <div class="col">
+    <div ngbDropdown class="d-inline-block col-sm-12">
+      <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
+      <div id = "list" class="dropdown-menu scrollable-menu" aria-labelledby="sortMenu">
+        <button  class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)="ChangeSortOrder(sortOrder)" >{{sortOrder}}</button>
+      </div>
+    </div>
+  </div>
+ </div><!--/.row-->
+ </div>
+ 

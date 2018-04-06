@@ -1,0 +1,34 @@
+.scrollable-menu {
+    height: auto;
+    max-height: 500px;
+    min-height: 200px;
+    overflow-x: hidden;
+}
+.mat-header-row {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 9999;
+  }
+.example-container {
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    max-height: 700px;
+    min-width: 300px;
+    overflow-x: auto;
+}
+ .mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+  
+ .mat-column-select {
+    overflow: visible;
+}
+
+.mat-table {
+    min-width: 500px;
+    overflow-x: auto;
+    white-space: nowrap;
+}

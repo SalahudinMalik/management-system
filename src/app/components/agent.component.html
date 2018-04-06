@@ -1,0 +1,77 @@
+<div class="animated fadeIn">
+  
+  <div class="row">
+      <div class="col">
+    <div ngbDropdown class="d-inline-block col-sm-12">
+      <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
+      <div id = "list" class="dropdown-menu scrollable-menu" aria-labelledby="sortMenu">
+        <button  class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)="ChangeSortOrder(sortOrder)" >{{sortOrder}}</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+ </div><!--/.row-->
+
+
+<br />
+ <div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="code">
+      <mat-header-cell  *matHeaderCellDef> Code </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="plotNumber">
+      <mat-header-cell *matHeaderCellDef> Plot No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.plotNumber}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="netSize">
+      <mat-header-cell *matHeaderCellDef> Net Size </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.netSize}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="sectorName">
+      <mat-header-cell *matHeaderCellDef> Sector </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.sectorName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="schemeName">
+      <mat-header-cell *matHeaderCellDef> Scheme </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.schemeName}} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             (click)="selection.toggle(row)">
+    </mat-row>
+  </mat-table>
+</div>
+  <div class="panel panel-default mt-2" style="float:right">
+    <button class="btn btn-primary" type="button" (click)="saveData()">Save</button>
+  </div>
+ </div>
+ 

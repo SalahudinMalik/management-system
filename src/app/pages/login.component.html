@@ -1,0 +1,44 @@
+
+
+
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7" >
+        <div class="card-group mb-0" style="box-shadow: 15px 20px 100px #187ea0c0;">
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%;margin-bottom: 0px; border:none;">
+                <div class="card-body text-center">
+                  <div>
+                    <h1>REMS</h1><br/>
+                    <!-- <p>Real State Management System.</p><br/> -->
+                    <br/>
+                    <p>&copy; All Rights Reserved <br/> D-Biz Solutions Pvt Ltd 2018</p>
+                  </div>
+                </div>
+          </div>
+          <div class="card p-5" style="margin-bottom: 0px;">
+            <div class="card-body">
+              <h1 class="text-muted" style="font-weight:400;" >Login</h1>
+              <p class="text-muted">Sign In to your account</p>
+              <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <input type="text" class="form-control" [(ngModel)]="userName"  placeholder="Username">
+                <!-- <input type="text" [(ngModel)]="userName" > -->
+              </div>
+              <div class="input-group mb-4">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="password" class="form-control" [(ngModel)]="userPass" placeholder="Password">
+              </div>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <button type="button" (click)="onClick()" class="btn btn-primary px-4">Login</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

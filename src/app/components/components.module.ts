@@ -18,6 +18,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 //import {NoopAnimationsModule} from '@angular/platform-browser/animations'
 import { CdkTableModule } from '@angular/cdk/table';
+import { NgProgressModule } from 'ngx-progressbar';
+
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule,
+    NgProgressModule,
     MatButtonModule,
     NgbModule,
     MatCheckboxModule,

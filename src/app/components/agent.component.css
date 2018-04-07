@@ -1,14 +1,21 @@
 .scrollable-menu {
+    background: white;
+    z-index: 9999;
     height: auto;
     max-height: 500px;
     min-height: 200px;
     overflow-x: hidden;
+    
 }
 .mat-header-row {
-    position: sticky;
+    /* position: sticky;
     top: 0;
     background: white;
-    z-index: 9999;
+    z-index: 9999; */
+    top: 0;
+    position: sticky;
+    z-index: 1;
+    background-color: inherit;
   }
 .example-container {
     display: flex;

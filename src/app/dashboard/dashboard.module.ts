@@ -10,10 +10,11 @@ import {DataService} from '../data.service';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
-
+import { NgProgressModule } from 'ngx-progressbar';
 @NgModule({
   imports: [CommonModule,NgbModule,
     DashboardRoutingModule,
+    NgProgressModule,
     ChartsModule,
     MatButtonModule,
     MatCheckboxModule,

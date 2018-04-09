@@ -35,6 +35,7 @@ export class AgentComponent implements OnInit {
   res;
   dataToSave: any;
   counter = 0;
+  oldObj:any;
   //public agents:any ;
   errorMsg:any;
   // code: string;
@@ -101,6 +102,7 @@ export class AgentComponent implements OnInit {
       this.toastr.warning('Please select al least a plot first. ');
       return;
     }
+    
     this.selection.selected.forEach(row => console.log('plots ' +row.code));
     console.log('Selected Agent' + this.selectedAgent + 'Code : ' + this.selectedAgentCode);
     //let obj = JSON.parse(this.dataToSave);
@@ -118,9 +120,14 @@ export class AgentComponent implements OnInit {
        this.counter++;
       });
     //plots = this.selection.selected;
-    this.dataToSave = JSON.stringify({agent ,plots});
+    this.dataToSave = JSON.stringify({"data" :{agent ,plots}});
+    if(this.dataToSave != null && this.oldObj == this.dataToSave){
+      this.toastr.warning('Record already exists');
+      return;
+    }
+    this.oldObj = this.dataToSave;
     console.log(this.dataToSave);
-
+    
     //Service 
 
     this.dataService.saveData(this.dataToSave)
@@ -133,6 +140,7 @@ export class AgentComponent implements OnInit {
           }
           else{
             this.toastr.success('Data inserted successfully.');
+            
           // this.showToast('success','Success','Data Updated');
             //this.validateButtons();
           }

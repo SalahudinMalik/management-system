@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Globals } from '../Globals';
 import { HttpClient, HttpHeaders  ,HttpErrorResponse } from '@angular/common/http';
-//import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -17,7 +17,7 @@ export class DataService {
   fullurl:any = '';
   res:any;
   dataObj:any;
- 
+  private _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   constructor(
     private global:Globals ,
     private http: HttpClient
@@ -34,18 +34,9 @@ export class DataService {
   }
 
   saveData(data:any): Observable<any> {
-    //const usrid : String= localStorage.getItem('usrid');
-    
-    //const options = {headers,  responseType: 'text' as 'text'};
     this.fullurl = this.global.weburl + 'plotD/saveAP';
-    let headers = new Headers({'Content-Type': 'application/json'});
-    //const options = new RequestOptions({ headers: headers });
-    const params = new URLSearchParams()
-    //let headers = new Headers({'Content-Type': 'application/json'});
-    this.dataObj = JSON.stringify({data});
-
-      this.res = this.http.post(`${this.fullurl}/`,this.dataObj )
-          .map((result: Response) => result.json())
+      this.res = this.http.post<any>(this.fullurl, data  , this._options)
+          .map((result: Response) => result)
           .catch(this.errorHandler);
     return this.res;
   }

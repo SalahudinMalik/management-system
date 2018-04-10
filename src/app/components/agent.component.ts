@@ -29,10 +29,16 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 export class AgentComponent implements OnInit {
   
   agentsList: Agent[] = [];
-  plotdata: Plot[] = [];
+   plot: Plot[] = [
+ 
+    {code:'00125',plotNumber: '125',netSize:'2.51',schemeName:'Bahria Town',sectorName:'MT Sector 1'  }
+  ];
+ // plotdata: Plot[] = [];
+  plotdata: any;
   selectedAgent: string = "Select Agent";
   selectedAgentCode: any = '';
   res;
+  PlotLength:any;
   dataToSave: any;
   counter = 0;
   oldObj:any;
@@ -44,9 +50,10 @@ export class AgentComponent implements OnInit {
   // sectorName: string;
   // schemeName: string;
   dataSource = new PlotDataSource(this.dataService);
+ 
   displayedColumns = ['select', 'code', 'plotNumber', 'netSize', 'sectorName' , 'schemeName'];
   //dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-  selection = new SelectionModel<Plot>(true, [] ,true);
+  selection = new SelectionModel<Plot>(true, this.plot , true);
   //selection = new SelectionModel<Element>(true, []);
 
 
@@ -54,28 +61,34 @@ export class AgentComponent implements OnInit {
     private dataService:DataService,
     private toastr: ToastrService,
     private ngProgress : NgProgress
-  ) { }
+  ) {
+
+
+
+   }
 
   ngOnInit() {
+
+
     this.ngProgress.start();
    // this.dataSource.connect().subscribe(data => this.plotdata = data);
     this.dataService.getAllAgent()
       .subscribe(data => {
-       // this.res = data;
        this.agentsList = data;
-        //console.log('Data : ' + this.agentsList[1].agentName);
-        // data.forEach(eachObj => {
-        //   //console.log("firms check!");
-        //   this.agentsList[this.counter] =  (eachObj['agentName']);
-        //   //console.log('agent : ' + this.agents[this.counter]);
-        //   this.counter++;
-        //   //eachObj.name = this.firms[data.firmid - 1].name;
-        // });
-
         this.ngProgress.done();
-      //console.log(data);
       });
     
+   
+    this.counter = 0;
+    // .forEach(row =>{
+    //   plots[this.counter] = row.code;
+    //   this.counter++;
+    this.dataSource.connect().subscribe(data =>{
+       this.PlotLength = data.length;
+       this.plotdata = data;
+       console.log('data '+ data[1]);
+       console.log("test" + this.plot);
+      });
 
     
   }
@@ -85,12 +98,22 @@ export class AgentComponent implements OnInit {
   ChangeAgent(newAgent: Agent) { 
     this.selectedAgent = newAgent.agentName;
     this.selectedAgentCode = newAgent.code;
+    let selectPlot: Plot[] = null;
+    // this.dataSource.connect().subscribe(data => {
+    //   console.log(data);
+    // }); 
+    this.dataService.getAgentPlot(this.selectedAgentCode)
+      .subscribe(data =>{
+        this.rowsToSelect(data);        
+      });
+  
   }
-
+ 
+ 
 
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-   const numRows = this.dataSource.connect.length
+   const numSelected = this.selection.selected.length;
+   const numRows = this.PlotLength;
    return numSelected === numRows;
   }
   saveData(){
@@ -114,11 +137,11 @@ export class AgentComponent implements OnInit {
     let plots:any[] = [];
     agent = this.selectedAgentCode;
     this.counter = 0;
-   
     this.selection.selected.forEach(row =>{
-       plots[this.counter] = row.code;
-       this.counter++;
-      });
+      plots[this.counter] = row.code;
+      this.counter++;
+     });
+   
     //plots = this.selection.selected;
     this.dataToSave = JSON.stringify({"data" :{agent ,plots}});
     if(this.dataToSave != null && this.oldObj == this.dataToSave){
@@ -148,11 +171,37 @@ export class AgentComponent implements OnInit {
       );
 
   }
+  rowsToSelect(arrPlot){
+    console.log("rowsToSelect is been called");
+    //console.log(this.plotdata)
+    let aPlot:Plot[] = [] ;
+    let rem = 0;
+   
+    arrPlot.forEach(Data =>{
+      console.log("arrPlot foreach");
+      this.plotdata.forEach(row =>{
+          if(row.code == Data){
+
+            aPlot.push(Object(row));
+            //this.plotdata.push(row);
+          }
+        });
+    });
+      
+    //let dis = JSON.parse(this.plot.toString());  
+    console.log(aPlot);
+    //plot.forEach(data => this.selection.select(data));
+   // this.selection.select(this.plot);
+  }
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-   // this.isAllSelected() ?
-       // this.selection.clear() : 
-        //this.dataSource.connect().forEach(row => this.selection.select(row));
+   this.isAllSelected() ?
+       this.selection.clear() : this.selection.select(this.plotdata[0]);
+        // this.dataSource.connect().subscribe(data =>{
+        //   data.forEach(row => this.selection.select(row));
+        //   console.log(this.selection.select(data['code']));
+          
+        // });
   }
 
 

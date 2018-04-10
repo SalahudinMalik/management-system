@@ -42,7 +42,7 @@ export class DataService {
   }
 
 
-  getAllPlots():Observable<Plot[]>{
+  getAllPlots():Observable<any>{
     this.fullurl = this.global.weburl + 'plotD/plots' ;
     // this.fullurl = this.global.weburl + "auth/login";
     
@@ -51,7 +51,19 @@ export class DataService {
         .catch(this.errorHandler);
      
   }
+  
+  getAgentPlot(agentCode:string):Observable<any>{
+    this.fullurl = '';
+    this.fullurl = this.global.weburl + 'plotD/agentPlots'+'/'+agentCode;
     
+      return  this.http.get(this.fullurl)
+      .map((result: Response) => result)
+      .catch(this.errorHandler);
+     
+    
+    
+    
+  }
 //   private extractData(res: Response) {
 //     if (res.status < 200 || res.status >= 300) {
 //           throw new Error('Bad response status: ' + res.status);

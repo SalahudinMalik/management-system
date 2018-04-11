@@ -51,7 +51,16 @@ export class DataService {
         .catch(this.errorHandler);
      
   }
-  
+  getLineChart():Observable<any>{
+    this.fullurl = '';
+    this.fullurl = this.global.weburl + 'charts/lineChart';
+    
+      return  this.http.get(this.fullurl)
+      .map(result => result)
+      .catch(this.errorHandler);
+     
+    
+  }
   getAgentPlot(agentCode:string):Observable<any>{
     this.fullurl = '';
     this.fullurl = this.global.weburl + 'plotD/agentPlots'+'/'+agentCode;

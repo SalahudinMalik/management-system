@@ -31,7 +31,7 @@ export class AgentComponent implements OnInit {
   agentsList: Agent[] = [];
    plot: Plot[] = [
  
-    {code:'00125',plotNumber: '125',netSize:'2.51',schemeName:'Bahria Town',sectorName:'MT Sector 1'  }
+    { code:'00125',plotNumber: '125',netSize:'2.51',schemeName:'Bahria Town',sectorName:'MT Sector 1'  }
   ];
  // plotdata: Plot[] = [];
   plotdata: any;
